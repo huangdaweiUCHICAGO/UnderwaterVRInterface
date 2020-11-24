@@ -110,9 +110,11 @@ You can either pause the game or stop your game by pressing the play button agai
 ![scene_game_tabs](tutorial-images/scene_game_tabs.png)
 * **(E)** [The Inspector Window](https://docs.unity3d.com/Manual/UsingTheInspector.html) allows you to view and edit all the properties of the currently selected GameObject. Because different types of GameObjects have different sets of properties, the layout and contents of the **Inspector** window change each time you select a different GameObject. Please refer to the later section about how to display variables in the inspector.
 * **(F)** [The Project window](https://docs.unity3d.com/Manual/ProjectView.html) displays your library of Assets (scripts, 3D files, shaders, etc...) that are available to use in your Project. When you import Assets into your Project, they appear here.
-
-You can also visit the Asset Store if you wish to add premade 3D elements, scripts etc... to your project. Please only use free assets and delete all unused ones to avoid having a large project file.
-
+* You can use Unity's console to debug your code. It can be initially found in the same window as the Project in another tab.
+![console_tab](tutorial-images/console_tab.png)
+To print things to your console, you can use the following fuction `Debug.Log("This is the debug log!");` in your scripts (make sure that your script is attached to a GameObject or else it won't run) which will print the following:
+![console_demo](tutorial-images/console_demo.png)
+* You can also visit the Asset Store if you wish to add premade 3D elements, scripts etc... to your project. Please only use free assets and delete all unused ones to avoid having a large project file.
 ![asset_store](tutorial-images/asset_store.png)
 
 ### 7.3 Game Objects and Scripts
