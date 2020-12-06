@@ -9,6 +9,7 @@ public class OxygenBar : MonoBehaviour
 
     private Slider slider;
     private Image fill;
+    private Text textBox;
     public InformationManager iM;
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class OxygenBar : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         fill = slider.GetComponentsInChildren<Image>()[0];
+        textBox = slider.GetComponentsInChildren<Text>()[1];
         SetMaxOxygenLevel(iM.GetMaxOxygenLevel());
     }
 
@@ -28,6 +30,7 @@ public class OxygenBar : MonoBehaviour
     public void SetOxygenLevel (float level)
     {
         slider.value = level;
+        textBox.text = ((int) level).ToString() + " %";
     }
 
     private void Update()
