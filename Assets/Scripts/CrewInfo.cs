@@ -8,6 +8,7 @@ using UnityEngine;
  */
 public struct CrewInfo
 {
+
     public string name;
     public Vector3 worldLocation;
     public int frequency;
@@ -18,4 +19,6 @@ public struct CrewInfo
         this.worldLocation = w;
         this.frequency = f;
     }
+
+
 }
