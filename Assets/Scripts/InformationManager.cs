@@ -27,6 +27,9 @@ public class InformationManager : MonoBehaviour
     // Timer
     private float underwaterTime = 0f;
     private String underwaterTimeStr = "---";
+
+    // TODO: Reset this to empty string
+    public String selectedCrew;
     
     /*
      * INFORMATION RETRIEVAL FUNCTIONS
@@ -103,7 +106,6 @@ public class InformationManager : MonoBehaviour
         OxygenUpdate();
         BatteryUpdate();
         UnderwaterTimerUpdate();
-        Debug.Log(underwaterTimeStr);
     }
 
     void UnderwaterTimerUpdate()

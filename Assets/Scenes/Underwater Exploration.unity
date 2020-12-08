@@ -11888,6 +11888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1411081794}
   waterPlane: {fileID: 1123430339}
+  selectedCrew: Pedro
 --- !u!1 &752142567
 GameObject:
   m_ObjectHideFlags: 0
@@ -13156,7 +13157,7 @@ RectTransform:
   m_GameObject: {fileID: 851618040}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.3, y: 3.3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 50885718}
   m_RootOrder: 0
@@ -13164,7 +13165,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &851618042
 MonoBehaviour:
@@ -16481,6 +16482,7 @@ GameObject:
   - component: {fileID: 1127323775}
   - component: {fileID: 1127323774}
   - component: {fileID: 1127323773}
+  - component: {fileID: 1127323776}
   m_Layer: 5
   m_Name: HUD Flat UI
   m_TagString: Untagged
@@ -16573,6 +16575,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1127323776
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127323771}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1129317213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19700,6 +19714,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892067b7517a8a547ac8add1d66230c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  markerPrefab: {fileID: 1185226402660596489, guid: 82afa360cb421ef4482822c918e3a975,
+    type: 3}
+  towerManager: {fileID: 1901407917}
+  infoManager: {fileID: 746461937}
   player: {fileID: 1411081794}
 --- !u!4 &1348258613 stripped
 Transform:
@@ -20619,7 +20637,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Hello World'
+  m_Text: XYZ m
 --- !u!222 &1386729818
 CanvasRenderer:
   m_ObjectHideFlags: 0
