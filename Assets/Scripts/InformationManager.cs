@@ -23,10 +23,19 @@ public class InformationManager : MonoBehaviour
     private float batteryLevelMax = 100f;
     private float currentBatteryLevel = 100f;
     private float batteryConsumptionRate = -0.8f; // in batt/second.
+
+    // Timer
+    private float underwaterTime = 0f;
+    private String underwaterTimeStr = "---";
     
     /*
      * INFORMATION RETRIEVAL FUNCTIONS
      */
+    public String GetUnderwaterTime()
+    {
+        return underwaterTimeStr;
+    }
+
     public float GetDepth()
     {
         return player.position.y - waterPlane.position.y;
@@ -93,6 +102,31 @@ public class InformationManager : MonoBehaviour
     {
         OxygenUpdate();
         BatteryUpdate();
+        UnderwaterTimerUpdate();
+        Debug.Log(underwaterTimeStr);
+    }
+
+    void UnderwaterTimerUpdate()
+    {
+        if (GetDepth() >= 0f)
+        {
+            underwaterTime = 0f;
+            underwaterTimeStr = "---";
+        } else
+        {
+            underwaterTime += Time.deltaTime;
+        }
+
+        int seconds = (int) Math.Floor(underwaterTime % 60);
+        String secondsStr;
+        if (seconds < 10)
+        {
+            secondsStr = "0" + seconds;
+        } else
+        {
+            secondsStr = seconds.ToString();
+        }
+        underwaterTimeStr = Math.Floor(underwaterTime / 60) + ":" + secondsStr;
     }
 
     void GameOverOxygen()
