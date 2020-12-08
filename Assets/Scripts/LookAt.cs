@@ -5,6 +5,7 @@ using UnityEngine;
 public class LookAt : MonoBehaviour
 {
     public Transform target;
+	public bool visible;
 	
 	void Start()
 	{
@@ -17,5 +18,8 @@ public class LookAt : MonoBehaviour
 		Quaternion rotation = Quaternion.LookRotation(direction);
 		transform.rotation = rotation;
 		transform.Rotate (270, 0, 0);
+		// gameObject.active = visible;
+		gameObject.SetActive(visible);
+		// GetComponent<Renderer>().enabled = visible;
 	}
 }
