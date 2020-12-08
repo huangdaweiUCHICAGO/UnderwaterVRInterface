@@ -6,7 +6,14 @@ public class MenuButtonController : MonoBehaviour
 {
     public int index;
     public int maxIndex;
+    
+    public CallTowerManager ctm;
+    public InformationManager im;
+
     private int item_h = 25;
+    public int currNavIndex = -1;
+    private int currCallIndex;
+
     [SerializeField] RectTransform rectTransform;
 
   
@@ -52,5 +59,11 @@ public class MenuButtonController : MonoBehaviour
         index = maxIndex;
         rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
       }
+    }
+
+    public void pressNav()
+    {
+      Debug.Log("Press Nav called");
+      currNavIndex = index;
     }
 }

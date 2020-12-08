@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7890170466174947239}
   - component: {fileID: 694862556776009921}
   - component: {fileID: 5266292989645390048}
+  - component: {fileID: 2877149420885120180}
   m_Layer: 0
   m_Name: Crewmate
   m_TagString: Untagged
@@ -195,3 +196,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2877149420885120180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867458960153555839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78e641efd5eb497583b0942c2c3fbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuButtonController: {fileID: 2127803704663594331, guid: 2ea48f223881840b891114b4fe201004,
+    type: 3}
+  thisIndex: 0
