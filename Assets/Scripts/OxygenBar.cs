@@ -9,7 +9,9 @@ public class OxygenBar : MonoBehaviour
 
     private Slider slider;
     private Image fill;
-    private Text textBox;
+    private Text textBox1;
+    private Text textBox2;
+    private Text textBox3;
     public InformationManager iM;
 
     // Start is called before the first frame update
@@ -17,7 +19,9 @@ public class OxygenBar : MonoBehaviour
     {
         slider = GetComponent<Slider>();
         fill = slider.GetComponentsInChildren<Image>()[0];
-        textBox = slider.GetComponentsInChildren<Text>()[1];
+        textBox1 = slider.GetComponentsInChildren<Text>()[1];
+        textBox2 = slider.GetComponentsInChildren<Text>()[2];
+        textBox3 = slider.GetComponentsInChildren<Text>()[3];
         SetMaxOxygenLevel(iM.GetMaxOxygenLevel());
     }
 
@@ -30,7 +34,7 @@ public class OxygenBar : MonoBehaviour
     public void SetOxygenLevel (float level)
     {
         slider.value = level;
-        textBox.text = ((int) level).ToString() + " %";
+        textBox1.text = ((int) level).ToString() + " %";
     }
 
     private void Update()
@@ -49,6 +53,13 @@ public class OxygenBar : MonoBehaviour
         } else {
             fill.color = Color.white;
         }
+		
+		//set time underwater
+        textBox2.text = "Time in Water: " + iM.GetUnderwaterTime();
+		
+		//set current water depth
+		string temp = iM.GetDepth().ToString();
+        textBox3.text = "Elevation: " + temp.Substring(0, temp.IndexOf('.') + 3);
 
     }
 
