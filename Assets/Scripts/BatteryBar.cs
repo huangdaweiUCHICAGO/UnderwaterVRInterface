@@ -35,11 +35,11 @@ public class BatteryBar : MonoBehaviour
         SetBatteryLevel(iM.GetBatteryLevel());
 
         //if the oxygen level is less than 20 turn red
-        if (slider.value <= 20) {
+        if (slider.value <= 15) {
             fill.color = Color.red;
 
         //if the oxygen level is less than 40 turn yellow
-        } else if (slider.value <= 40) {
+        } else if (slider.value <= 30) {
             fill.color = Color.yellow;
 
         //default color is white
