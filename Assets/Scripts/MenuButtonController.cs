@@ -16,20 +16,25 @@ public class MenuButtonController : MonoBehaviour
     private int currCallIndex;
 
     public GameObject crewmateInfoPrefab;
+    private CrewInfo[] crewInformation;
 
     [SerializeField] RectTransform rectTransform;
 
  
     public void OnEnable() {
-      CrewInfo[] crewInformation = ctm.GetCrewmatesInformation();
+      crewInformation = ctm.GetCrewmatesInformation();
       maxIndex = crewInformation.Length-1;
 
       int temp_index = 0;
+
+      /* instantiate menu item for each crewmate */
       foreach(CrewInfo currCrewmate in crewInformation)
         {
           GameObject newCrewmate = Instantiate(crewmateInfoPrefab, this.transform);
           MenuButton menuButton = newCrewmate.GetComponent<MenuButton>();
           menuButton.thisIndex = temp_index;
+          menuButton.crewmate = currCrewmate;
+
           menuButton.menuButtonController = this.GetComponent<MenuButtonController>();
 
           Text newCrewmateText = newCrewmate.transform.GetChild(0).GetComponent<Text>();
@@ -88,5 +93,13 @@ public class MenuButtonController : MonoBehaviour
     {
       //Debug.Log("Press Nav called on " + index);
       currNavIndex = index;
+      im.SetTracking(crewInformation[index]);
+    }
+
+    public void cancelNav()
+    {
+      Debug.Log("Cancelling Navigation");
+      currNavIndex = -1;
+      im.ClearTracking(false);
     }
 }
