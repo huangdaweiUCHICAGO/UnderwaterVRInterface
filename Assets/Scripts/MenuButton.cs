@@ -18,7 +18,7 @@ public class MenuButton : MonoBehaviour
     void Update()
     {
         if (menuButtonController.index == thisIndex) {
-
+          Debug.Log("Current index: " + thisIndex);
           // Navigation
           if (menuButtonController.currNavIndex == thisIndex) {
             if (!isCurrNav) {
@@ -30,7 +30,7 @@ public class MenuButton : MonoBehaviour
           }
 
           // Calling
-          
+
         } 
     }
 }

@@ -23,7 +23,7 @@ public class CallTowerManager : MonoBehaviour
     public SimpleDial playerTransmitter;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (crewmates.Length > 0)
             InstantiateCrewmateFrequencies();
