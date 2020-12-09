@@ -37,7 +37,7 @@ public class SpeechToText : MonoBehaviour
 		actions.Add("Answer", () => towerManger.playerTransmitter.AnswerCall());
 		actions.Add("Cancel navigation", () => im.ClearTracking(false));
 
-
+		
 		//begin speech recognition
 		keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
 		keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;

@@ -108,6 +108,7 @@ public class InformationManager : MonoBehaviour
 
 
 
+
     /*
      * UPDATE FUNCTIONS
      */
@@ -182,6 +183,8 @@ public class InformationManager : MonoBehaviour
         }
         underwaterTimeStr = Math.Floor(underwaterTime / 60) + ":" + secondsStr;
     }
+
+
 
     void GameOverOxygen()
     {
