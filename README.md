@@ -1,6 +1,16 @@
 # Underwater User Interfaces
 
-This repository includes the Unity project to complete the final project for "Intro to HCI (CMSC 20300)." 
+Final project for [CMSC 20300 - Introduction to Human Computer Interaction](https://hciintro20.plopes.org/) at the University of Chicago (Fall 2020)
+
+Interfaces created by [Dawei Huang](https://github.com/huangdaweiUCHICAGO), [Kate Lu](https://github.com/Kate32815), [Spencer Ng](https://github.com/spencerng), and [Ece Varol](https://github.com/ecevaroll). Based on template code provided by Yudai Tanaka, Jas Brooks, and Jasmine Lu.
+
+## Usage note
+
+Some of the audio interfaces in this project rely on Google's Text-To-Speech service. For security purposes, the required credentials have not been committed to this repository. To authenticate your current instance, place the `gcloud.key` file with the API key at the **root of this repository** after cloning it.
+
+To Pedro and the TA team: Please [email us](mailto:huangdawei2014@gmail.com,katelu@uchicago.edu,spencerng@uchicago.edu,evarol@uchicago.edu?subject=UnderwaterVR API key) to obtain access to the `gcloud.key` file if you are testing out our code. Thanks!
+
+------------------------
 
 The project features a simple scuba-diving-esque scene, for which you must improve and complete the player's user interface. **All the instructions for the homework are in the class wiki.** 
 
