@@ -22,11 +22,17 @@ public class UnderwaterMonitor : MonoBehaviour
     void Update()
     {
         //set time underwater
-        timeTextBox.text = "Time Underwater: " + iM.GetUnderwaterTime();
 
         //set current water depth
         string temp = iM.GetDepth().ToString();
-        elevationTextBox.text = "Elevation: " + temp.Substring(0, temp.IndexOf('.') + 3) + " m";
+        if (iM.GetDepth() < 0f) {
+            timeTextBox.text = "Time Underwater: " + iM.GetUnderwaterTime();
+            string depth = temp.Substring(1, temp.IndexOf('.') + 1);
+            elevationTextBox.text = "Depth: " + depth + " meters";
+        } else {
+            timeTextBox.text = " ";
+            elevationTextBox.text = " ";
+        }
 
         //Display Warning Text if Battery or Oxygen Low
         if ((((int) iM.GetOxygenLevel()) <= 15) && (((int) iM.GetBatteryLevel()) <= 15)) {
@@ -34,7 +40,11 @@ public class UnderwaterMonitor : MonoBehaviour
         } else if (((int) iM.GetOxygenLevel()) <= 15) {
             alertTextBox.text = "Oxygen Low Exit Water";
         } else if (((int) iM.GetBatteryLevel()) <= 15) {
-            alertTextBox.text = "Battery Low";
+            if (iM.GetDepth() < 0f) {
+                alertTextBox.text = "Battery Low Exit Water";
+            } else {
+                alertTextBox.text = "Battery Low  Stay in Land";
+            }
         } else {
             alertTextBox.text = " ";
         }

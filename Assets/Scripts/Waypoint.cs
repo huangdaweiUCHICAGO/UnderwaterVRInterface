@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class Waypoint : MonoBehaviour
 {
+
 	private Image iconImg;
 	private Text distanceText;
 	
 	public Transform player;
-	public Transform target;
+	
 	public Camera cam;
+	private Vector3 target;
 	
 	public float closeEnoughDist;
     // Start is called before the first frame update
@@ -20,33 +22,48 @@ public class Waypoint : MonoBehaviour
 		distanceText = GetComponentInChildren<Text>();
     }
 
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	public InformationManager infoManager;
+	void Update()
     {
-		GetDistance();
-        CheckOnScreen();
+		if (infoManager.IsTracking())
+		{
+			ToggleUI(true);
+			target = infoManager.GetTracking().worldLocation;
+			GetDistance();
+			CheckOnScreen();
+		} else
+        {
+			ToggleUI(false);
+		}
     }
 	
 	private void GetDistance()
 	{
-		float dist = Vector3.Distance(player.position,target.position);
-		distanceText.text = dist.ToString("f1") + "m";
-		if(dist < closeEnoughDist)
-		{
-			Destroy(gameObject);
-		}
+		Vector3 adjustedPosition = target;
+		adjustedPosition.y = player.position.y;
+		float dist = Vector3.Distance(player.position, target);
+		float adjustedDist = Vector3.Distance(player.position, adjustedPosition);
+		
+		distanceText.text = dist.ToString("f1") + " m";
+		if(adjustedDist <= closeEnoughDist)
+        {
+			Debug.Log(infoManager.GetTracking().name + " found!");
+			infoManager.ClearTracking();
+        }
+
 	}
 	
 	private void CheckOnScreen()
 	{
-		float thing = Vector3.Dot((target.position - cam.transform.position).normalized, cam.transform.forward);
+		float thing = Vector3.Dot((target - cam.transform.position).normalized, cam.transform.forward);
 		if (thing <= 0)
 		{
 			ToggleUI(false);
 		}
 		else{
 			ToggleUI(true);
-			transform.position = cam.WorldToScreenPoint(target.position);
+			transform.position = cam.WorldToScreenPoint(target);
 		}
 	}
 	
