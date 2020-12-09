@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class InformationManager : MonoBehaviour
 {
+
     [Header("User Information")]
     public Transform player;
 
@@ -14,6 +15,7 @@ public class InformationManager : MonoBehaviour
     public Transform waterPlane;
     // TODO: delete this
     public CallTowerManager towerManager;
+    public TTSManager audioManager;
 
     // Oxygen info
     private float oxygenLevelMax = 100f;
@@ -32,8 +34,8 @@ public class InformationManager : MonoBehaviour
 
     private CrewInfo trackedCrew;
     private bool isTracking = false;
-    private bool initialFrame = true;
 
+    private float prevDepth;
     
 
     /*
@@ -52,12 +54,21 @@ public class InformationManager : MonoBehaviour
 
     public void SetTracking(CrewInfo crew)
     {
+        audioManager.SayText("Navigating to " + crew.name);
         isTracking = true;
         trackedCrew = crew;
     }
 
-    public void ClearTracking()
+    // If true, user found the target; else navigation cancelled
+    public void ClearTracking(bool found)
     {
+        if (found) {
+            audioManager.SayText("You have reached " + trackedCrew.name);
+        } else
+        {
+            audioManager.SayText("Navigation cancelled");
+        }
+        
         isTracking = false;
     }
 
@@ -65,7 +76,6 @@ public class InformationManager : MonoBehaviour
     {
         return isTracking;
     }
-
     public CrewInfo GetTracking()
     {
         return trackedCrew;
@@ -98,11 +108,12 @@ public class InformationManager : MonoBehaviour
 
 
 
+
     /*
      * UPDATE FUNCTIONS
      */
-    
-    private void BatteryUpdate ()
+
+    private void BatteryUpdate()
     {
         currentBatteryLevel = Mathf.Clamp(currentBatteryLevel + batteryConsumptionRate * Time.deltaTime, 0f, batteryLevelMax);
 
@@ -110,18 +121,19 @@ public class InformationManager : MonoBehaviour
             GameOverBattery();
     }
 
-    private void OxygenUpdate ()
+    private void OxygenUpdate()
     {
         float factor = 0f;
 
         if (GetDepth() < 0f)
         {
             factor = oxygenConsumpsionRate;
-        } else
+        }
+        else
         {
             factor = oxygenReplenishRate;
         }
-        float oxygenDifference =  factor * Time.deltaTime;
+        float oxygenDifference = factor * Time.deltaTime;
 
         currentOxygenLevel = Mathf.Clamp(currentOxygenLevel + oxygenDifference, 0f, oxygenLevelMax);
 
@@ -132,15 +144,19 @@ public class InformationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // TODO: Delete this
-        if (initialFrame)
-        {
-            SetTracking(towerManager.GetCrewmatesInformation()[0]);
-            initialFrame = false;
-        }
         OxygenUpdate();
         BatteryUpdate();
         UnderwaterTimerUpdate();
+        CheckUnderwater();
+    }
+
+    void CheckUnderwater()
+    {
+        if (prevDepth >= 0f && GetDepth() < 0f)
+        {
+            audioManager.SayText("Entering water");
+        }
+        prevDepth = GetDepth();
     }
 
     void UnderwaterTimerUpdate()
@@ -149,22 +165,26 @@ public class InformationManager : MonoBehaviour
         {
             underwaterTime = 0f;
             underwaterTimeStr = "---";
-        } else
+        }
+        else
         {
             underwaterTime += Time.deltaTime;
         }
 
-        int seconds = (int) Math.Floor(underwaterTime % 60);
+        int seconds = (int)Math.Floor(underwaterTime % 60);
         String secondsStr;
         if (seconds < 10)
         {
             secondsStr = "0" + seconds;
-        } else
+        }
+        else
         {
             secondsStr = seconds.ToString();
         }
         underwaterTimeStr = Math.Floor(underwaterTime / 60) + ":" + secondsStr;
     }
+
+
 
     void GameOverOxygen()
     {

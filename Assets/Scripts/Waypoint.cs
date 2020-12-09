@@ -48,8 +48,11 @@ public class Waypoint : MonoBehaviour
 		distanceText.text = dist.ToString("f1") + " m";
 		if(adjustedDist <= closeEnoughDist)
         {
-			Debug.Log(infoManager.GetTracking().name + " found!");
-			infoManager.ClearTracking();
+			string targetName = infoManager.GetTracking().name;
+			Debug.Log(targetName + " found!");
+			
+			infoManager.ClearTracking(true);
+
         }
 
 	}

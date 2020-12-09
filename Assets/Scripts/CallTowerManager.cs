@@ -22,6 +22,8 @@ public class CallTowerManager : MonoBehaviour
 
     public SimpleDial playerTransmitter;
 
+    public TTSManager audioManager;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -111,6 +113,7 @@ public class CallTowerManager : MonoBehaviour
 
     public bool CallPlayer(AudioClip call, int freq)
     {
+        
         return playerTransmitter.IncomingCall(call, freq);
     }
 
@@ -123,7 +126,7 @@ public class CallTowerManager : MonoBehaviour
 
     IEnumerator Emergency ()
     {
-        yield return new WaitForSeconds(emergencyAudio.length + 0.5f);
+        yield return new WaitForSeconds(emergencyAudio.length + 2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

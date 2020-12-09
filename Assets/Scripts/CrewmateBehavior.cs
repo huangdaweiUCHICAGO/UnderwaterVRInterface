@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +30,12 @@ public class CrewmateBehavior : MonoBehaviour
         {
             Debug.Log("Call attempted!");
             StartCoroutine(RandomCall());
+        } else
+        {
+            
+            Debug.Log("Call made!");
         }
-        Debug.Log("Call made!");
+        
+        
     }
 }

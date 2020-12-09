@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class SimpleDial : MonoBehaviour
 {
-
+    
     public CallTowerManager ctm;
     private AudioSource aS;
     private bool isBusy = false;
@@ -14,6 +15,10 @@ public class SimpleDial : MonoBehaviour
     public AudioClip ringtone;
     private AudioClip incomingCall;
     private int incomingCallerFrequency = 0;
+
+    public AudioClip callEndTone;
+    private bool prevPlaying = false;
+    private bool callEnded = true;
 
     void Start()
     {
@@ -27,7 +32,17 @@ public class SimpleDial : MonoBehaviour
         {
             isBusy = true;
             aS.clip = ctm.CallCrewmate(freq);
-            aS.Play();
+            string text;
+            if (freq == ctm.GetEmergencyFrequency())
+            {
+                text = "Calling emergency line";
+            } else
+            {
+                Transform crewmate = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)];
+                text = "Calling " + crewmate.name;
+            }
+            callEnded = false;
+            ctm.audioManager.SayText(text, aS);
         }
     }
 
@@ -35,7 +50,10 @@ public class SimpleDial : MonoBehaviour
     {
         if (!isBusy && !isIncomingCall)
         {
+            string crewmateName = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)].name;
+            ctm.audioManager.SayText("Incoming call from " + crewmateName);
             incomingCall = speaker;
+
             incomingCallerFrequency = freq;
             isIncomingCall = true;
             isBusy = true;
@@ -58,6 +76,7 @@ public class SimpleDial : MonoBehaviour
             aS.clip = incomingCall;
             aS.Play();
             isIncomingCall = false;
+            callEnded = false;
         }
     }
 
@@ -68,6 +87,23 @@ public class SimpleDial : MonoBehaviour
             aS.Stop();
             isBusy = false;
             isIncomingCall = false;
+
+            // TODO add dial tone here
         }
+    }
+
+    public void Update()
+    {
+        // Play call ended tone until hang up
+        Debug.Log((!ctm.audioManager.IsBusy()).ToString() +  prevPlaying.ToString() + (!callEnded).ToString());
+        if (!isIncomingCall && !ctm.audioManager.IsBusy() && !callEnded && !aS.isPlaying)
+        {
+            callEnded = true;
+            aS.loop = true;
+            aS.clip = callEndTone;
+            aS.Play();
+            prevPlaying = false;
+        } 
+        
     }
 }
