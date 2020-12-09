@@ -8,7 +8,7 @@ Interfaces created by [Dawei Huang](https://github.com/huangdaweiUCHICAGO), [Kat
 
 Some of the audio interfaces in this project rely on Google's Text-To-Speech service. For security purposes, the required credentials have not been committed to this repository. To authenticate your current instance, place the `gcloud.key` file with the API key at the **root of this repository** after cloning it.
 
-To Pedro and the TA team: Please [email us](mailto:huangdawei2014@gmail.com,katelu@uchicago.edu,spencerng@uchicago.edu,evarol@uchicago.edu?subject=UnderwaterVR API key) to obtain access to the `gcloud.key` file if you are testing out our code. Thanks!
+To Pedro and the TA team: Please [email us](mailto:huangdawei2014@gmail.com,katelu@uchicago.edu,spencerng@uchicago.edu,evarol@uchicago.edu?subject=UnderwaterVR%20GCloud%20API%20key) to obtain access to the `gcloud.key` file if you are testing out our code. Thanks!
 
 ------------------------
 
