@@ -101,15 +101,12 @@ public class CallTowerManager : MonoBehaviour
     {
         if (frequency == emergencyFrequency)
         {
-            audioManager.SayText("Calling emergency line", false);
             StartCoroutine(Emergency());
             return emergencyAudio;
         }
         if (crewmateFrequencies.Contains(frequency))
         {
-            Transform crewmate = crewmates[Array.IndexOf(crewmateFrequencies, frequency)];
-            audioManager.SayText("Calling " + crewmate.name, false);
-            return crewmate.GetComponent<CrewmateBehavior>().callAudioReceiver;
+            return crewmates[Array.IndexOf(crewmateFrequencies, frequency)].GetComponent<CrewmateBehavior>().callAudioReceiver;
         }
         return wrongFrequency;
     }
@@ -129,7 +126,7 @@ public class CallTowerManager : MonoBehaviour
 
     IEnumerator Emergency ()
     {
-        yield return new WaitForSeconds(emergencyAudio.length + 0.5f);
+        yield return new WaitForSeconds(emergencyAudio.length + 2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

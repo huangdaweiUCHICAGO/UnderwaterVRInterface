@@ -32,7 +32,7 @@ public class SpeechToText : MonoBehaviour
 			actions.Add("Navigate to " + crew.name, () => im.SetTracking(crew));
 			actions.Add("Call " + crew.name, () => towerManger.playerTransmitter.QuickDial(crew.frequency));
 		}
-		actions.Add("Call emergency", () => towerManger.playerTransmitter.QuickDial(towerManger.GetEmergencyFrequency()));
+		actions.Add("Call emergency line", () => towerManger.playerTransmitter.QuickDial(towerManger.GetEmergencyFrequency()));
 		actions.Add("Hang up", () => towerManger.playerTransmitter.HangUp());
 		actions.Add("Answer", () => towerManger.playerTransmitter.AnswerCall());
 		actions.Add("Cancel navigation", () => im.ClearTracking(false));

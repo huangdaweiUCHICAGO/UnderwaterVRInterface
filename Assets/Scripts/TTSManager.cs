@@ -10,7 +10,9 @@ using System.Linq;
 
 public class TTSManager : MonoBehaviour
 {
+
     private string apiKey;
+    private bool isBusy;
 
     // Start is called before the first frame update
     void Start()
@@ -18,13 +20,23 @@ public class TTSManager : MonoBehaviour
         apiKey = new StreamReader("gcloud.key").ReadToEnd();
     }
 
-    public void SayText(string text, bool async=true)
+    // Says the given text, calling Google Cloud's TTS service as needed
+    // (when the phrase has not been said before)
+    // If provided with an audio source, this will play the source immediately after 
+    // the text is spoken
+    public void SayText(string text, AudioSource nextSource=null)
     {
-        StartCoroutine(SayTextRoutine(text, async));
+        isBusy = true;
+        StartCoroutine(SayTextRoutine(text, nextSource));
+    }
+
+    public bool IsBusy()
+    {
+        return isBusy;
     }
 
     
-    public IEnumerator SayTextRoutine(string text, bool async)
+    public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null, bool playCallEnd = true)
     {
         // Plays given text. If async is true, 
         string filename = "Assets/Audio/TTS/" + text.Replace(" ", "_") + ".mp3";
@@ -44,10 +56,13 @@ public class TTSManager : MonoBehaviour
         this.GetComponent<AudioSource>().clip = clip;
         this.GetComponent<AudioSource>().Play();
 
-        if (!async)
+        if (nextSource != null)
         {
             yield return new WaitForSeconds(clip.length);
+            nextSource.Play();
+            yield return new WaitForSeconds(nextSource.clip.length);
         }
+        isBusy = false;
     }
 
     class Response
