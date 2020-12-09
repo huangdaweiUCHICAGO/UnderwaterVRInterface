@@ -85,16 +85,16 @@ public class Minimap : MonoBehaviour
             Vector3 direction = target - player.transform.position;
 
             float dist = direction.magnitude * scale;
-            float theta = Vector3.Angle(player.transform.position, target) + 270;
-            theta += player.transform.eulerAngles.y;
+            float theta = Mathf.Atan2(direction.x, direction.z) * 180 / Mathf.PI;
+            theta -= player.transform.eulerAngles.y;
 
             if (dist > 50)
             {
                 dist = 60;    
             }
             
-            float x = dist * Mathf.Cos(theta * Mathf.PI / 180);
-            float y = dist * Mathf.Sin(theta * Mathf.PI / 180);
+            float y = dist * Mathf.Cos(theta * Mathf.PI / 180);
+            float x = dist * Mathf.Sin(theta * Mathf.PI / 180);
             GameObject marker = CreateMarker(crew.name, x, y, isTarget);
             
 
