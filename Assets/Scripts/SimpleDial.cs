@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,10 @@ public class SimpleDial : MonoBehaviour
     {
         if (!isBusy && !isIncomingCall)
         {
+            string crewmateName = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)].name;
+            ctm.audioManager.SayText("Incoming call from " + crewmateName);
             incomingCall = speaker;
+
             incomingCallerFrequency = freq;
             isIncomingCall = true;
             isBusy = true;

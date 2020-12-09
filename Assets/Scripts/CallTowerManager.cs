@@ -22,6 +22,8 @@ public class CallTowerManager : MonoBehaviour
 
     public SimpleDial playerTransmitter;
 
+    public TTSManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,18 +101,22 @@ public class CallTowerManager : MonoBehaviour
     {
         if (frequency == emergencyFrequency)
         {
+            audioManager.SayText("Calling emergency line", false);
             StartCoroutine(Emergency());
             return emergencyAudio;
         }
         if (crewmateFrequencies.Contains(frequency))
         {
-            return crewmates[Array.IndexOf(crewmateFrequencies, frequency)].GetComponent<CrewmateBehavior>().callAudioReceiver;
+            Transform crewmate = crewmates[Array.IndexOf(crewmateFrequencies, frequency)];
+            audioManager.SayText("Calling " + crewmate.name, false);
+            return crewmate.GetComponent<CrewmateBehavior>().callAudioReceiver;
         }
         return wrongFrequency;
     }
 
     public bool CallPlayer(AudioClip call, int freq)
     {
+        
         return playerTransmitter.IncomingCall(call, freq);
     }
 
