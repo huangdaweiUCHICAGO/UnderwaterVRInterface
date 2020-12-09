@@ -25,7 +25,7 @@ public class CallTowerManager : MonoBehaviour
     public TTSManager audioManager;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         if (crewmates.Length > 0)
             InstantiateCrewmateFrequencies();

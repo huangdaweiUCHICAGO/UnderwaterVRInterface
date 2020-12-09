@@ -1,13 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuButtonController : MonoBehaviour
 {
     public int index;
     public int maxIndex;
+    
+    public CallTowerManager ctm;
+    public InformationManager im;
+
     private int item_h = 25;
+    public int currNavIndex = -1;
+    private int currCallIndex;
+
+    public GameObject crewmateInfoPrefab;
+    private CrewInfo[] crewInformation;
+
     [SerializeField] RectTransform rectTransform;
+
+ 
+    public void OnEnable() {
+      crewInformation = ctm.GetCrewmatesInformation();
+      maxIndex = crewInformation.Length-1;
+
+      int temp_index = 0;
+
+      /* instantiate menu item for each crewmate */
+      foreach(CrewInfo currCrewmate in crewInformation)
+        {
+          GameObject newCrewmate = Instantiate(crewmateInfoPrefab, this.transform);
+          MenuButton menuButton = newCrewmate.GetComponent<MenuButton>();
+          menuButton.thisIndex = temp_index;
+          menuButton.crewmate = currCrewmate;
+
+          menuButton.menuButtonController = this.GetComponent<MenuButtonController>();
+
+          Text newCrewmateText = newCrewmate.transform.GetChild(0).GetComponent<Text>();
+          newCrewmateText.text = currCrewmate.name;
+
+          temp_index++;
+        }
+    }
 
   
     // Start is called before the first frame update
@@ -52,5 +87,19 @@ public class MenuButtonController : MonoBehaviour
         index = maxIndex;
         rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
       }
+    }
+
+    public void pressNav()
+    {
+      //Debug.Log("Press Nav called on " + index);
+      currNavIndex = index;
+      im.SetTracking(crewInformation[index]);
+    }
+
+    public void cancelNav()
+    {
+      Debug.Log("Cancelling Navigation");
+      currNavIndex = -1;
+      im.ClearTracking(false);
     }
 }
