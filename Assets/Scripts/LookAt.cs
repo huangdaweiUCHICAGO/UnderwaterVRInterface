@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class LookAt : MonoBehaviour
 {
-    public Transform target;
-	public bool visible;
+	public InformationManager infoManager;
+
 	
 	void Start()
 	{
@@ -14,12 +14,13 @@ public class LookAt : MonoBehaviour
 	
 	private void Update()
 	{
-		Vector3 direction = target.position - transform.position;
+		Vector3 target = infoManager.GetTracking().worldLocation;
+		Vector3 direction = target - transform.position;
 		Quaternion rotation = Quaternion.LookRotation(direction);
 		transform.rotation = rotation;
 		transform.Rotate (270, 0, 0);
 		// gameObject.active = visible;
-		gameObject.SetActive(visible);
+		gameObject.SetActive(infoManager.IsTracking());
 		// GetComponent<Renderer>().enabled = visible;
 	}
 }

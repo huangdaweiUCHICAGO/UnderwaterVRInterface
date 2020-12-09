@@ -12,6 +12,8 @@ public class InformationManager : MonoBehaviour
 
     [Header("Water Information")]
     public Transform waterPlane;
+    // TODO: delete this
+    public CallTowerManager towerManager;
 
     // Oxygen info
     private float oxygenLevelMax = 100f;
@@ -28,15 +30,45 @@ public class InformationManager : MonoBehaviour
     private float underwaterTime = 0f;
     private String underwaterTimeStr = "---";
 
-    // TODO: Reset this to empty string
-    public String selectedCrew;
+    private CrewInfo trackedCrew;
+    private bool isTracking = false;
+    private bool initialFrame = true;
+
     
+
     /*
      * INFORMATION RETRIEVAL FUNCTIONS
      */
+
+    public void Start()
+    {
+        
+    }
+
     public String GetUnderwaterTime()
     {
         return underwaterTimeStr;
+    }
+
+    public void SetTracking(CrewInfo crew)
+    {
+        isTracking = true;
+        trackedCrew = crew;
+    }
+
+    public void ClearTracking()
+    {
+        isTracking = false;
+    }
+
+    public bool IsTracking()
+    {
+        return isTracking;
+    }
+
+    public CrewInfo GetTracking()
+    {
+        return trackedCrew;
     }
 
     public float GetDepth()
@@ -64,10 +96,7 @@ public class InformationManager : MonoBehaviour
         return oxygenLevelMax;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+
 
     /*
      * UPDATE FUNCTIONS
@@ -103,6 +132,12 @@ public class InformationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // TODO: Delete this
+        if (initialFrame)
+        {
+            SetTracking(towerManager.GetCrewmatesInformation()[0]);
+            initialFrame = false;
+        }
         OxygenUpdate();
         BatteryUpdate();
         UnderwaterTimerUpdate();
