@@ -80,7 +80,7 @@ public class Minimap : MonoBehaviour
         {
             Vector3 target = crew.worldLocation;
             target.y = player.transform.position.y;
-            bool isTarget = crew.name.Equals(infoManager.selectedCrew);
+            bool isTarget = infoManager.IsTracking() && crew.name.Equals(infoManager.GetTracking().name);
             
             Vector3 direction = target - player.transform.position;
 
