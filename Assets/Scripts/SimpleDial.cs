@@ -17,7 +17,7 @@ public class SimpleDial : MonoBehaviour
     private int incomingCallerFrequency = 0;
 
     public AudioClip callEndTone;
-    private bool prevPlaying = false;
+    public AudioClip hangUpTone;
     private bool callEnded = true;
 
     void Start()
@@ -85,24 +85,31 @@ public class SimpleDial : MonoBehaviour
         if (isBusy)
         {
             aS.Stop();
-            isBusy = false;
-            isIncomingCall = false;
-
-            // TODO add dial tone here
+            StartCoroutine(PlayHangupSound());
+            
         }
+    }
+
+    IEnumerator PlayHangupSound()
+    {
+        aS.clip = hangUpTone;
+        aS.Play();
+        yield return new WaitForSeconds(hangUpTone.length);
+        aS.Stop();
+        isBusy = false;
+        isIncomingCall = false;
+        callEnded = true;
     }
 
     public void Update()
     {
         // Play call ended tone until hang up
-        Debug.Log((!ctm.audioManager.IsBusy()).ToString() +  prevPlaying.ToString() + (!callEnded).ToString());
         if (!isIncomingCall && !ctm.audioManager.IsBusy() && !callEnded && !aS.isPlaying)
         {
             callEnded = true;
             aS.loop = true;
             aS.clip = callEndTone;
             aS.Play();
-            prevPlaying = false;
         } 
         
     }

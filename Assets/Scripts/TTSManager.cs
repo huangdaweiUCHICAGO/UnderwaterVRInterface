@@ -38,7 +38,6 @@ public class TTSManager : MonoBehaviour
     
     public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null, bool playCallEnd = true)
     {
-        // Plays given text. If async is true, 
         string filename = "Assets/Audio/TTS/" + text.Replace(" ", "_") + ".mp3";
         if (!File.Exists(filename))
         {
@@ -51,10 +50,15 @@ public class TTSManager : MonoBehaviour
         yield return www.SendWebRequest();
 
         AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+        AudioSource audioSource = this.GetComponents<AudioSource>()[0];
+      
+        if (audioSource.isPlaying)
+        {
+            audioSource = this.GetComponents<AudioSource>()[1].isPlaying ? this.GetComponents<AudioSource>()[2] : this.GetComponents<AudioSource>()[1];
+        }
 
-
-        this.GetComponent<AudioSource>().clip = clip;
-        this.GetComponent<AudioSource>().Play();
+        audioSource.clip = clip;
+        audioSource.Play();
 
         if (nextSource != null)
         {

@@ -20,7 +20,8 @@ public class LookAt : MonoBehaviour
 		transform.rotation = rotation;
 		transform.Rotate (270, 0, 0);
 		// gameObject.active = visible;
-		gameObject.SetActive(infoManager.IsTracking());
+		this.GetComponent<Renderer>().enabled = infoManager.IsTracking();
+		
 		// GetComponent<Renderer>().enabled = visible;
 	}
 }
