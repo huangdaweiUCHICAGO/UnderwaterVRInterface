@@ -10,6 +10,7 @@ public class SpeechToText : MonoBehaviour
 
 	public InformationManager im;
 	public CallTowerManager towerManger;
+	private string helpText;
 
 
     private KeywordRecognizer keywordRecognizer;
@@ -17,6 +18,9 @@ public class SpeechToText : MonoBehaviour
 	
 	void Start()
 	{
+		helpText = "Reach your crewmates by saying Call or Navigate to, followed by their name. ";
+		helpText += "You may also say Call emergency line, hang up, or cancel navigation. ";
+		helpText += "Say Hello to answer calls. Say help to hear this again.";
 
 		StartCoroutine(PopulateCommands());
 		
@@ -35,9 +39,11 @@ public class SpeechToText : MonoBehaviour
 		actions.Add("Call emergency line", () => towerManger.playerTransmitter.QuickDial(towerManger.GetEmergencyFrequency()));
 		actions.Add("Hang up", () => towerManger.playerTransmitter.HangUp());
 		actions.Add("Answer", () => towerManger.playerTransmitter.AnswerCall());
+		actions.Add("Hello", () => towerManger.playerTransmitter.AnswerCall());
 		actions.Add("Cancel navigation", () => im.ClearTracking(false));
+		actions.Add("Help", () => im.audioManager.SayText(helpText));
 
-		
+
 		//begin speech recognition
 		keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
 		keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;

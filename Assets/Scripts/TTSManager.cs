@@ -14,6 +14,9 @@ public class TTSManager : MonoBehaviour
     private string apiKey;
     private bool isBusy;
 
+    private bool sayingHelpText;
+    private AudioSource helpAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +30,19 @@ public class TTSManager : MonoBehaviour
     public void SayText(string text, AudioSource nextSource=null)
     {
         isBusy = true;
+
+        if (text.Contains("Reach your crewmates"))
+        {
+            if (helpAudioSource != null)
+            {
+                helpAudioSource.Stop();
+            }
+            sayingHelpText = true;
+        }
+
+
         StartCoroutine(SayTextRoutine(text, nextSource));
+
     }
 
     public bool IsBusy()
@@ -36,7 +51,7 @@ public class TTSManager : MonoBehaviour
     }
 
     
-    public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null, bool playCallEnd = true)
+    public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null)
     {
         string filename = "Assets/Audio/TTS/" + text.Replace(" ", "_") + ".mp3";
         if (!File.Exists(filename))
@@ -59,7 +74,10 @@ public class TTSManager : MonoBehaviour
 
         audioSource.clip = clip;
         audioSource.Play();
-
+        if (sayingHelpText)
+        {
+            helpAudioSource = audioSource;
+        }
         if (nextSource != null)
         {
             yield return new WaitForSeconds(clip.length);
@@ -67,6 +85,13 @@ public class TTSManager : MonoBehaviour
             yield return new WaitForSeconds(nextSource.clip.length);
         }
         isBusy = false;
+        if (sayingHelpText)
+        {
+            yield return new WaitForSeconds(clip.length);
+            sayingHelpText = false;
+            helpAudioSource = null;
+        } 
+        
     }
 
     class Response
