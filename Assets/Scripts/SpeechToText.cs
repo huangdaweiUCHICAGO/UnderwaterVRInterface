@@ -10,7 +10,7 @@ public class SpeechToText : MonoBehaviour
 
 	public InformationManager im;
 	public CallTowerManager towerManger;
-	private string helpText;
+	private string helpText;	
 
 
     private KeywordRecognizer keywordRecognizer;
@@ -20,22 +20,14 @@ public class SpeechToText : MonoBehaviour
 	{
 		helpText = "Reach your crewmates by saying Call or Navigate to, followed by their name. ";
 		helpText += "You may also say Call emergency line, hang up, or cancel navigation. ";
-		helpText += "Say Hello to answer calls. Say help to hear this again.";
+		helpText += "Say Answer to answer calls. Say help to hear this again.";
 
-		StartCoroutine(PopulateCommands());
-		
+		PopulateCommands();
 	}
 
-	private IEnumerator PopulateCommands()
+	private void PopulateCommands()
     {
-		yield return new WaitForSeconds(1.0f);
-		Debug.Log(towerManger.GetCrewmatesInformation());
-		//add recongizable commands into our dictionary
-		foreach (CrewInfo crew in towerManger.GetCrewmatesInformation())
-		{
-			actions.Add("Navigate to " + crew.name, () => im.SetTracking(crew));
-			actions.Add("Call " + crew.name, () => towerManger.playerTransmitter.QuickDial(crew.frequency));
-		}
+		
 		actions.Add("Call emergency line", () => towerManger.playerTransmitter.QuickDial(towerManger.GetEmergencyFrequency()));
 		actions.Add("Hang up", () => towerManger.playerTransmitter.HangUp());
 		actions.Add("Answer", () => towerManger.playerTransmitter.AnswerCall());
@@ -49,8 +41,71 @@ public class SpeechToText : MonoBehaviour
 		keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
 		keywordRecognizer.Start();
 	}
-	
-	private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
+
+    void Update()
+    {
+		bool changesMade = false;
+		ArrayList crewNames = new ArrayList();
+		Dictionary<string, CrewInfo> lookup = new Dictionary<string, CrewInfo>();
+		ArrayList namesToDelete = new ArrayList();
+		
+		//add recongizable commands into our dictionary
+		foreach (CrewInfo crew in towerManger.GetCrewmatesInformation())
+		{
+			crewNames.Add(crew.name);
+			lookup.Add(crew.name, crew);
+		}
+
+		foreach (string key in actions.Keys)
+        {
+			if (!key.Contains("Navigate to"))
+            {
+				continue;
+            }
+
+			string name = key.Split(' ')[2];
+			if (!crewNames.Contains(name))
+            {
+				namesToDelete.Add(name);
+				changesMade = true;
+            } else
+            {
+				crewNames.Remove(name);
+            }
+        }
+
+		foreach (string name in namesToDelete)
+        {
+			actions.Remove("Navigate to " + name);
+			actions.Remove("Call " + name);
+		}
+
+		foreach (string name in crewNames)
+        {
+			changesMade = true;
+			CrewInfo crew = lookup[name];
+			actions.Add("Navigate to " + crew.name, () => im.SetTracking(crew));
+			actions.Add("Call " + crew.name, () => towerManger.playerTransmitter.QuickDial(crew.frequency));
+		}
+
+		if (changesMade && keywordRecognizer != null)
+        {
+			keywordRecognizer.Stop();
+			keywordRecognizer.Dispose();
+
+			keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+			keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+			keywordRecognizer.Start();
+		}
+	}
+
+    private void OnDestroy()
+    {
+		keywordRecognizer.Stop();
+		keywordRecognizer.Dispose();
+	}
+
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
 	{
 		Debug.Log(speech.text);
 		actions[speech.text].Invoke();
