@@ -53,7 +53,12 @@ public class TTSManager : MonoBehaviour
     
     public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null)
     {
-        string filename = "Assets/Audio/TTS/" + text.Replace(" ", "_") + ".mp3";
+        string textFilename = text.Replace(" ", "_");
+        if (textFilename.Length > 200)
+        {
+            textFilename = textFilename.Substring(0, 200);
+        }
+        string filename = "Assets/Audio/TTS/" + textFilename + ".mp3";
         if (!File.Exists(filename))
         {
             yield return StartCoroutine(CreateMP3(text, filename));
