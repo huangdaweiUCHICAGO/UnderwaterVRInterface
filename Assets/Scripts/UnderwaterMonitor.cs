@@ -11,6 +11,8 @@ public class UnderwaterMonitor : MonoBehaviour
     private Image warning;
     public InformationManager iM;
     private bool WarningFinished = true;
+    
+    public TTSManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +67,7 @@ public class UnderwaterMonitor : MonoBehaviour
         WarningFinished = false;
         warning.gameObject.SetActive (true);
         alertTextBox.text = display;
+        audioManager.SayText(display);
         yield return new WaitForSeconds(5);
         warning.gameObject.SetActive (false);
         alertTextBox.text = " ";

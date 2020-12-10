@@ -8,8 +8,11 @@ public class MenuButton : MonoBehaviour
     public MenuButtonController menuButtonController;
     public int thisIndex;
     public CrewInfo crewmate;
-    private bool isCurrNav = false;
+
     private Text textDisplay;
+
+    private bool isCurrNav = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +29,13 @@ public class MenuButton : MonoBehaviour
           /* Navigation */
           if (menuButtonController.currNavIndex == thisIndex) {
             if (!isCurrNav) {
-              Debug.Log("Pressed nav for index: " + thisIndex);
               isCurrNav = true;
             }
           } else {
             isCurrNav = false;
           }
 
-          // Calling
+          /* Calling */
 
         } else {
           textDisplay.text = crewmate.name;

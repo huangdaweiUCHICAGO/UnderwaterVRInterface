@@ -10397,6 +10397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iM: {fileID: 746461937}
+  audioManager: {fileID: 1634579996}
 --- !u!1 &669832969
 GameObject:
   m_ObjectHideFlags: 0
@@ -13472,7 +13473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.5, y: -30.9}
+  m_AnchoredPosition: {x: 5, y: 20}
   m_SizeDelta: {x: 324.95, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867061014
@@ -14152,7 +14153,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 1
@@ -14180,7 +14181,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943203711}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
   m_Name: 
@@ -22179,6 +22180,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 850470951}
         m_MethodName: AnswerCall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2034083756}
+        m_MethodName: callCrew
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34993,6 +35005,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6867458960153555839, guid: 4ce7d9ab576ec44628fe5b5e946d0fb7,
         type: 3}
+    - target: {fileID: 2127803704663594331, guid: 2ea48f223881840b891114b4fe201004,
+        type: 3}
+      propertyPath: forearm
+      value: 
+      objectReference: {fileID: 850470949}
     - target: {fileID: 2127803704663594332, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
       propertyPath: m_Name
