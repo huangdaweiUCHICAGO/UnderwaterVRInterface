@@ -31,12 +31,20 @@ public class MenuButton : MonoBehaviour
           textDisplay.text = crewmate.name;
         } 
 
+        /* Navigation Icon */
         if (menuButtonController.im.IsTracking() &&
         menuButtonController.im.GetTracking().name == crewmate.name) {
           navigateIcon.enabled = true;
-        }
-        else {
+        } else {
           navigateIcon.enabled = false;
+        }
+
+        /* Call Icon */
+        SimpleDial sd = menuButtonController.forearm.GetComponent<SimpleDial>();
+        if (!sd.IsEnded() && sd.GetCurrCrewmate() == crewmate.name) {
+          callIcon.enabled = true;
+        } else {
+          callIcon.enabled = false;
         }
     }
 

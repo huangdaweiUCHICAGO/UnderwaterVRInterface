@@ -18,6 +18,8 @@ public class SimpleDial : MonoBehaviour
 
     public AudioClip callEndTone;
     public AudioClip hangUpTone;
+    
+    private string currCallingCrewmate = "";
     private bool callEnded = true;
 
     void Start()
@@ -40,6 +42,7 @@ public class SimpleDial : MonoBehaviour
             {
                 Transform crewmate = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)];
                 text = "Calling " + crewmate.name;
+                currCallingCrewmate = crewmate.name;
             }
             callEnded = false;
             ctm.audioManager.SayText(text, aS);
@@ -52,6 +55,7 @@ public class SimpleDial : MonoBehaviour
         {
             string crewmateName = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)].name;
             ctm.audioManager.SayText("Incoming call from " + crewmateName);
+            currCallingCrewmate = crewmateName;
             incomingCall = speaker;
 
             incomingCallerFrequency = freq;
@@ -112,5 +116,15 @@ public class SimpleDial : MonoBehaviour
             aS.Play();
         } 
         
+    }
+
+    public bool IsEnded()
+    {
+      return callEnded;
+    }
+
+    public string GetCurrCrewmate()
+    {
+      return currCallingCrewmate;
     }
 }
