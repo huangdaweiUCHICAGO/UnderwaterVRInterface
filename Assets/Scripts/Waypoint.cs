@@ -45,7 +45,7 @@ public class Waypoint : MonoBehaviour
 		float dist = Vector3.Distance(player.position, target);
 		float adjustedDist = Vector3.Distance(player.position, adjustedPosition);
 		
-		distanceText.text = dist.ToString("f1") + " m";
+		distanceText.text = dist.ToString("f0") + " m";
 		if(adjustedDist <= closeEnoughDist)
         {
 			string targetName = infoManager.GetTracking().name;
