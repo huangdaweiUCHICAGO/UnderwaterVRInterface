@@ -2328,8 +2328,8 @@ MonoBehaviour:
   onButtonPressed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 850470951}
-        m_MethodName: HangUp
+      - m_Target: {fileID: 2034083756}
+        m_MethodName: cancelNav
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2396,8 +2396,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 850470951}
-        m_MethodName: HangUp
+      - m_Target: {fileID: 2034083756}
+        m_MethodName: cancelNav
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
