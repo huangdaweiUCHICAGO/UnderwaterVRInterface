@@ -7,38 +7,35 @@ public class MenuButton : MonoBehaviour
 {
     public MenuButtonController menuButtonController;
     public int thisIndex;
+
     public CrewInfo crewmate;
 
     private Text textDisplay;
-
-    private bool isCurrNav = false;
+    private Text distanceDisplay;
     
 
     // Start is called before the first frame update
     void Start()
     {
         textDisplay = this.transform.GetChild(0).GetComponent<Text>();
+        distanceDisplay = this.transform.GetChild(1).GetComponent<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (menuButtonController.index == thisIndex) {
-          textDisplay.text = "> " + crewmate.name;
+      GetDistance();
+      if (menuButtonController.index == thisIndex) {
+        textDisplay.text = "> " + crewmate.name;
+      } else {
+        textDisplay.text = crewmate.name;
+      } 
+    }
 
-          /* Navigation */
-          if (menuButtonController.currNavIndex == thisIndex) {
-            if (!isCurrNav) {
-              isCurrNav = true;
-            }
-          } else {
-            isCurrNav = false;
-          }
-
-          /* Calling */
-
-        } else {
-          textDisplay.text = crewmate.name;
-        } 
+    private void GetDistance()
+    {
+      Transform player = menuButtonController.player;
+      float dist = Vector3.Distance(player.position, crewmate.worldLocation);
+      distanceDisplay.text = dist.ToString("0") + " m";
     }
 }

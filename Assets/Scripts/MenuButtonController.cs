@@ -11,12 +11,10 @@ public class MenuButtonController : MonoBehaviour
     public CallTowerManager ctm;
     public InformationManager im;
     public GameObject forearm;
+    public Transform player;
+    public GameObject crewmateInfoPrefab;
 
     private int item_h = 25;
-    public int currNavIndex = -1;
-    private int currCallIndex;
-
-    public GameObject crewmateInfoPrefab;
     private CrewInfo[] crewInformation;
 
     [SerializeField] RectTransform rectTransform;
@@ -58,6 +56,8 @@ public class MenuButtonController : MonoBehaviour
         
     }
 
+    /* Scrolling logic implementation based on:
+    https://pavcreations.com/scrollable-menu-in-unity-with-button-or-key-controller/*/
     public void pressDown()
     {
       if (index < maxIndex) {
@@ -66,7 +66,9 @@ public class MenuButtonController : MonoBehaviour
           rectTransform.offsetMax -= (new Vector2(0, -item_h));
         }
         else if (index == maxIndex) {
-          rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
+          if (maxIndex > 1) {
+            rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
+          }
         }
       } else {
         index = 0;
@@ -86,20 +88,19 @@ public class MenuButtonController : MonoBehaviour
         }
       } else {
         index = maxIndex;
-        rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
+        if (maxIndex > 1) {
+          rectTransform.offsetMax = new Vector2(0, (maxIndex - 2)*item_h+item_h/2);
+        }
       }
     }
 
     public void pressNav()
     {
-      currNavIndex = index;
       im.SetTracking(crewInformation[index]);
-      Debug.Log(crewInformation[index]);
     }
 
     public void cancelNav()
     {
-      currNavIndex = -1;
       im.ClearTracking(false);
     }
 
