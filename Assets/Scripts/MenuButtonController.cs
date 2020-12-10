@@ -24,7 +24,10 @@ public class MenuButtonController : MonoBehaviour
 
     [SerializeField] RectTransform rectTransform;
 
-  
+    private void OnEnable() {
+      crewInformation = ctm.GetCrewmatesInformation();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,10 @@ public class MenuButtonController : MonoBehaviour
       crewInformation = ctm.GetCrewmatesInformation();
       maxIndex = crewInformation.Length-1;
 
+      if (index > maxIndex) {
+        index = maxIndex;
+      }
+
       if (maxIndex < 2) {
         rectTransform.offsetMax = Vector2.zero;
       }
@@ -66,6 +73,10 @@ public class MenuButtonController : MonoBehaviour
       /* instantiate menu item for each crewmate */
       foreach(CrewInfo crewmate in crewInformation)
         {
+          /* store the currently selected crewmate */
+          if (crewmate.name == currCrewSelected.name) {
+            index = temp_index;
+          }
           GameObject crewmateItem = CreateItem(crewmate);
           oldItems.Add(crewmateItem);
           temp_index++;
@@ -74,6 +85,7 @@ public class MenuButtonController : MonoBehaviour
 
     void DestroyItems()
     {
+      currCrewSelected = crewInformation[index];
       foreach (GameObject item in oldItems) {
         Destroy(item);
       }
