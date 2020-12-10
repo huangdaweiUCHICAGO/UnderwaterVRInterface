@@ -127,4 +127,9 @@ public class SimpleDial : MonoBehaviour
     {
       return currCallingCrewmate;
     }
+
+    public bool IsPlaying ()
+    {
+        return aS.isPlaying;
+    }
 }

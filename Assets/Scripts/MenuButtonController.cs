@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MenuButtonController : MonoBehaviour
 {
-    public int index;
-    public int maxIndex;
+    private int index = 0;
+    private int maxIndex;
     
     public CallTowerManager ctm;
     public InformationManager im;
@@ -25,7 +26,7 @@ public class MenuButtonController : MonoBehaviour
     [SerializeField] RectTransform rectTransform;
 
     private void OnEnable() {
-      crewInformation = ctm.GetCrewmatesInformation();
+        crewInformation = GetSortedCrewInfo();
     }
     
     // Start is called before the first frame update
@@ -42,10 +43,16 @@ public class MenuButtonController : MonoBehaviour
         AddItems();
     }
 
+    CrewInfo[] GetSortedCrewInfo()
+    {
+        CrewInfo[] tempCrewInfo = ctm.GetCrewmatesInformation();
+        return tempCrewInfo.OrderBy(c => c.name).ToList().ToArray();
+    }
+
     private GameObject CreateItem(CrewInfo crewmate) {
         GameObject newItem = Instantiate(crewmateInfoPrefab, this.transform);
         MenuButton menuButton = newItem.GetComponent<MenuButton>();
-        menuButton.thisIndex = temp_index;
+        menuButton.SetIndex(temp_index);
         menuButton.crewmate = crewmate;
 
         menuButton.menuButtonController = this.GetComponent<MenuButtonController>();
@@ -57,8 +64,11 @@ public class MenuButtonController : MonoBehaviour
 
     void AddItems() {
       oldItems = new ArrayList();
-      crewInformation = ctm.GetCrewmatesInformation();
-      maxIndex = crewInformation.Length-1;
+
+
+        crewInformation = GetSortedCrewInfo();
+
+        maxIndex = crewInformation.Length-1;
 
       if (index > maxIndex) {
         index = maxIndex;
@@ -87,7 +97,10 @@ public class MenuButtonController : MonoBehaviour
     {
       currCrewSelected = crewInformation[index];
       foreach (GameObject item in oldItems) {
-        Destroy(item);
+            if (item != null)
+            {
+                Destroy(item);
+            }
       }
     }
 
@@ -144,5 +157,10 @@ public class MenuButtonController : MonoBehaviour
     {
       SimpleDial sd = forearm.GetComponent<SimpleDial>();
       sd.QuickDial(crewInformation[index].frequency);
+    }
+
+    public int GetIndex()
+    {
+        return index;
     }
 }

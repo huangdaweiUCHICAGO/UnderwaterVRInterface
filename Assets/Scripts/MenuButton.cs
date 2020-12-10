@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuButton : MonoBehaviour
 {
     public MenuButtonController menuButtonController;
-    public int thisIndex;
+    private int thisIndex = 0;
 
     public CrewInfo crewmate;
 
@@ -15,6 +15,10 @@ public class MenuButton : MonoBehaviour
     private Image callIcon;
     private Image navigateIcon;
     
+    public void SetIndex(int idx)
+    {
+        thisIndex = idx;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +29,7 @@ public class MenuButton : MonoBehaviour
         navigateIcon = this.transform.GetChild(3).GetComponent<Image>();
 
         GetDistance();
-        if (menuButtonController.index == thisIndex) {
+        if (menuButtonController.GetIndex() == thisIndex) {
           textDisplay.text = "> " + crewmate.name;
         } else {
           textDisplay.text = crewmate.name;
@@ -41,7 +45,7 @@ public class MenuButton : MonoBehaviour
 
         /* Call Icon */
         SimpleDial sd = menuButtonController.forearm.GetComponent<SimpleDial>();
-        if (!sd.IsEnded() && sd.GetCurrCrewmate() == crewmate.name) {
+        if ((!sd.IsEnded() || sd.IsPlaying()) && sd.GetCurrCrewmate() == crewmate.name) {
           callIcon.enabled = true;
         } else {
           callIcon.enabled = false;
@@ -51,6 +55,14 @@ public class MenuButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (menuButtonController.GetIndex() == thisIndex)
+        {
+            textDisplay.text = "> " + crewmate.name;
+        }
+        else
+        {
+            textDisplay.text = crewmate.name;
+        }
 
     }
 

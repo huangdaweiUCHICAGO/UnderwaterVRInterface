@@ -29,7 +29,11 @@ public class TTSManager : MonoBehaviour
     // the text is spoken
     public void SayText(string text, AudioSource nextSource=null)
     {
-        isBusy = true;
+        if (nextSource != null)
+        {
+            isBusy = true;
+        }
+
         Debug.Log("Saying: " + text);
         if (text.Contains("Reach your crewmates"))
         {
@@ -67,7 +71,8 @@ public class TTSManager : MonoBehaviour
             yield return StartCoroutine(CreateMP3(text, filename));
         }
 
-        //AUDIO
+        
+        
         string path = "file://" + Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/")) + "/" + filename;
         UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.MPEG);
         yield return www.SendWebRequest();
@@ -89,10 +94,12 @@ public class TTSManager : MonoBehaviour
         if (nextSource != null)
         {
             yield return new WaitForSeconds(clip.length);
-            nextSource.Play();
+            audioSource.clip = nextSource.clip;
+            audioSource.Play();
             yield return new WaitForSeconds(nextSource.clip.length);
+            isBusy = false;
         }
-        isBusy = false;
+        
         if (sayingHelpText)
         {
             yield return new WaitForSeconds(clip.length);
