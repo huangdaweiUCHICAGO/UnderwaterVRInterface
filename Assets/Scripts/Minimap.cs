@@ -70,6 +70,7 @@ public class Minimap : MonoBehaviour
         {
             Destroy(marker);
         }
+        oldMarkers = new ArrayList();
     }
 
     void AddMarkers()
@@ -115,7 +116,7 @@ public class Minimap : MonoBehaviour
         markerScript.SetText(text);
 
         marker.transform.SetParent(this.transform);
-        marker.transform.localScale = new Vector3(1, 1, 1);
+        //marker.transform.localScale = new Vector3(1, 1, 1);
         marker.transform.localPosition = markerPos;
         return marker;
     }
