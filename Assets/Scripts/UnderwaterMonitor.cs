@@ -66,7 +66,7 @@ public class UnderwaterMonitor : MonoBehaviour
 
                 StartCoroutine(SoundWarning("Oxygen Low Exit Water"));
 
-            } else if (((int) iM.GetBatteryLevel()) <= 95) {
+            } else if (((int) iM.GetBatteryLevel()) <= 15) {
                 
                 if (iM.GetDepth() < 0f && noWarning) {
                     StartCoroutine(SoundWarning("Battery Low Exit Water"));
