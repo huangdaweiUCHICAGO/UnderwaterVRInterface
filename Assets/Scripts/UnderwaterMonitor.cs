@@ -61,25 +61,28 @@ public class UnderwaterMonitor : MonoBehaviour
 
             //Display Warning Text if Battery or Oxygen Low
             if ((((int) iM.GetOxygenLevel()) <= 15) && (((int) iM.GetBatteryLevel()) <= 15) && noWarning) {
-                StartCoroutine(SoundWarning("Battery and Oxygen Low"));
+                StartCoroutine(SoundWarning("Low Battery and Oxygen"));
 
             } else if ((((int) iM.GetOxygenLevel()) <= 15) && (iM.GetDepth() < 0f) && noWarning) {
 
-                StartCoroutine(SoundWarning("Oxygen Low - Exit Water"));
+                StartCoroutine(SoundWarning("Low Oxygen: Exit Water"));
 
             } else if (((((int) iM.GetBatteryLevel()) <= 30)) && (!firstBatteryLevel)){
                 firstBatteryLevel = true;
                 audioManager.SayText("Warning: Battery Level under 30 percent");
 
-            } else if (((int) iM.GetBatteryLevel()) <= 15) {
+            } else if (((((int) iM.GetOxygenLevel()) <= 30)) && (iM.GetDepth() < 0f) && noWarning){
+                audioManager.SayText("Warning: Oxygen Level under 30 percent");
+
+            }  else if (((int) iM.GetBatteryLevel()) <= 15) {
                 
                 if (iM.GetDepth() < 0f && noWarning) {
-                    StartCoroutine(SoundWarning("Battery Low - Exit Water"));
+                    StartCoroutine(SoundWarning("Low Battery: Exit Water"));
 
                 } else if (iM.GetDepth() >0f && !impFinished) {
                     impWarning.gameObject.SetActive (true);
-                    impTextBox.text = "Battery Low - Stay on Land";
-                    StartCoroutine(ImpSound("Battery Low - Stay on Land"));
+                    impTextBox.text = "Low Battery: Stay on Land";
+                    StartCoroutine(ImpSound("Low Battery: Stay on Land"));
                 }
 
             } else {

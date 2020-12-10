@@ -30,7 +30,7 @@ public class TTSManager : MonoBehaviour
     public void SayText(string text, AudioSource nextSource=null)
     {
         isBusy = true;
-
+        Debug.Log("Saying: " + text);
         if (text.Contains("Reach your crewmates"))
         {
             if (helpAudioSource != null)
@@ -54,8 +54,9 @@ public class TTSManager : MonoBehaviour
     public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null)
     {
         string textFilename = text.Replace(" ", "_");
-        textFilename = text.Replace(":", "_");
-        textFilename = text.Replace("?", "_");
+        textFilename = textFilename.Replace(":", "_");
+        textFilename = textFilename.Replace("?", "_");
+
         if (textFilename.Length > 200)
         {
             textFilename = textFilename.Substring(0, 200);
@@ -105,6 +106,7 @@ public class TTSManager : MonoBehaviour
     {
         public string audioContent;
     }
+
     IEnumerator CreateMP3(string spokenText, string filename)
     {
         string url = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + apiKey;

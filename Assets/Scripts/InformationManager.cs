@@ -148,6 +148,22 @@ public class InformationManager : MonoBehaviour
         BatteryUpdate();
         UnderwaterTimerUpdate();
         CheckUnderwater();
+        CheckCrewmateDisappear();
+    }
+
+    void CheckCrewmateDisappear()
+    {
+        ArrayList crewNames = new ArrayList();
+        foreach (CrewInfo crew in towerManager.GetCrewmatesInformation())
+        {
+            crewNames.Add(crew.name);
+        }
+
+        if (isTracking && !crewNames.Contains(trackedCrew.name))
+        {
+            isTracking = false;
+            audioManager.SayText(trackedCrew.name + " is unreachable. Navigation cancelled.");
+        }
     }
 
     void CheckUnderwater()
