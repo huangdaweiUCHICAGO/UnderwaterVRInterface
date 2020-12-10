@@ -54,6 +54,8 @@ public class TTSManager : MonoBehaviour
     public IEnumerator SayTextRoutine(string text, AudioSource nextSource=null)
     {
         string textFilename = text.Replace(" ", "_");
+        textFilename = text.Replace(":", "_");
+        textFilename = text.Replace("?", "_");
         if (textFilename.Length > 200)
         {
             textFilename = textFilename.Substring(0, 200);
