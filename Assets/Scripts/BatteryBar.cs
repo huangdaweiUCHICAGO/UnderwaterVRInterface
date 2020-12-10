@@ -23,7 +23,7 @@ public class BatteryBar : MonoBehaviour
         slider.maxValue = maxLevel;
         slider.value = maxLevel; // Start with max!
     }
-       public void SetBatteryLevel (float level)
+    public void SetBatteryLevel (float level)
     {
         slider.value = level;
         textBox.text = ((int) level).ToString() + " %";
