@@ -12,6 +12,8 @@ public class MenuButton : MonoBehaviour
 
     private Text textDisplay;
     private Text distanceDisplay;
+    private Image callIcon;
+    private Image navigateIcon;
     
 
     // Start is called before the first frame update
@@ -19,18 +21,29 @@ public class MenuButton : MonoBehaviour
     {
         textDisplay = this.transform.GetChild(0).GetComponent<Text>();
         distanceDisplay = this.transform.GetChild(1).GetComponent<Text>();
+        callIcon = this.transform.GetChild(2).GetComponent<Image>();
+        navigateIcon = this.transform.GetChild(3).GetComponent<Image>();
+
         GetDistance();
         if (menuButtonController.index == thisIndex) {
           textDisplay.text = "> " + crewmate.name;
         } else {
           textDisplay.text = crewmate.name;
         } 
+
+        if (menuButtonController.im.IsTracking() &&
+        menuButtonController.im.GetTracking().name == crewmate.name) {
+          navigateIcon.enabled = true;
+        }
+        else {
+          navigateIcon.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+
     }
 
     private void GetDistance()
