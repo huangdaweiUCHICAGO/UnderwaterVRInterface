@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ScreenManager : MonoBehaviour
+public class ScreenManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     public List<GameObject> screens;
@@ -18,6 +19,18 @@ public class ScreenManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+
+        Cursor.visible = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+
+        Cursor.visible = false;
     }
 
     public void SwitchToScreen (int i)

@@ -38,6 +38,7 @@ public class SimpleDial : MonoBehaviour
             if (freq == ctm.GetEmergencyFrequency())
             {
                 text = "Calling emergency line";
+                currCallingCrewmate = "Emergency";
             } else
             {
                 Transform crewmate = ctm.crewmates[Array.IndexOf(ctm.crewmateFrequencies, freq)];
@@ -89,6 +90,7 @@ public class SimpleDial : MonoBehaviour
         if (isBusy)
         {
             aS.Stop();
+            ctm.audioManager.StopCall();
             StartCoroutine(PlayHangupSound());
             
         }

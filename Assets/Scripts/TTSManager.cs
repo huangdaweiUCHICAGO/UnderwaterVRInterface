@@ -16,6 +16,7 @@ public class TTSManager : MonoBehaviour
 
     private bool sayingHelpText;
     private AudioSource helpAudioSource;
+    private AudioSource callAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -96,8 +97,12 @@ public class TTSManager : MonoBehaviour
             yield return new WaitForSeconds(clip.length);
             audioSource.clip = nextSource.clip;
             audioSource.Play();
+            callAudioSource = audioSource;
             yield return new WaitForSeconds(nextSource.clip.length);
-            isBusy = false;
+            if (callAudioSource != null)
+            {
+                isBusy = false;
+            }
         }
         
         if (sayingHelpText)
@@ -145,6 +150,16 @@ public class TTSManager : MonoBehaviour
 
 
 
+    }
+
+    public void StopCall()
+    {
+        if (isBusy && callAudioSource != null)
+        {
+            callAudioSource.Stop();
+            callAudioSource = null;
+            isBusy = false;
+        }
     }
 
 }

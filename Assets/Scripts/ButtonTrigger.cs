@@ -22,6 +22,8 @@ public class ButtonTrigger : MonoBehaviour
         }
     }
 
+    
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class InformationManager : MonoBehaviour
 {
@@ -44,8 +45,10 @@ public class InformationManager : MonoBehaviour
 
     public void Start()
     {
-        
+        Cursor.visible = false;
     }
+
+
 
     public String GetUnderwaterTime()
     {
