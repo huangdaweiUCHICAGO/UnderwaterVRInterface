@@ -44,7 +44,7 @@ public class BatteryBar : MonoBehaviour
 
         //default color is white
         } else {
-            fill.color = Color.white;
+            fill.color = Color.green;
         }
         
     }
