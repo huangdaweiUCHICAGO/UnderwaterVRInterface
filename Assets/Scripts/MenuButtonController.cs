@@ -11,6 +11,8 @@ public class MenuButtonController : MonoBehaviour
     public CallTowerManager ctm;
     public InformationManager im;
     public GameObject forearm;
+    public Transform player;
+
 
     private int item_h = 25;
     public int currNavIndex = -1;
