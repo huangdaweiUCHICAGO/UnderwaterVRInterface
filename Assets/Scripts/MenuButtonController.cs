@@ -56,6 +56,8 @@ public class MenuButtonController : MonoBehaviour
         
     }
 
+    /* Scrolling logic implementation based on:
+    https://pavcreations.com/scrollable-menu-in-unity-with-button-or-key-controller/*/
     public void pressDown()
     {
       if (index < maxIndex) {
