@@ -10,6 +10,7 @@ public class MenuButtonController : MonoBehaviour
     
     public CallTowerManager ctm;
     public InformationManager im;
+    public GameObject forearm;
 
     private int item_h = 25;
     public int currNavIndex = -1;
@@ -91,15 +92,20 @@ public class MenuButtonController : MonoBehaviour
 
     public void pressNav()
     {
-      //Debug.Log("Press Nav called on " + index);
       currNavIndex = index;
       im.SetTracking(crewInformation[index]);
+      Debug.Log(crewInformation[index]);
     }
 
     public void cancelNav()
     {
-      Debug.Log("Cancelling Navigation");
       currNavIndex = -1;
       im.ClearTracking(false);
+    }
+
+    public void callCrew()
+    {
+      SimpleDial sd = forearm.GetComponent<SimpleDial>();
+      sd.QuickDial(crewInformation[index].frequency);
     }
 }
