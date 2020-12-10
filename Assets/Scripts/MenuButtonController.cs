@@ -117,6 +117,7 @@ public class MenuButtonController : MonoBehaviour
       }
     }
 
+    /* buttons functionality */
     public void pressNav()
     {
       im.SetTracking(crewInformation[index]);
