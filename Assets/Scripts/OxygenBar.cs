@@ -17,7 +17,7 @@ public class OxygenBar : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
-        fill = slider.GetComponentsInChildren<Image>()[0];
+        fill = slider.GetComponentsInChildren<Image>()[1];
         percentTextBox = slider.GetComponentsInChildren<Text>()[1];
 
         SetMaxOxygenLevel(iM.GetMaxOxygenLevel());

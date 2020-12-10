@@ -13,7 +13,7 @@ public class BatteryBar : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
-        fill = slider.GetComponentsInChildren<Image>()[0];
+        fill = slider.GetComponentsInChildren<Image>()[1];
         textBox = slider.GetComponentsInChildren<Text>()[1];
         SetMaxBatteryLevel(iM.GetMaxBatteryLevel());
     }
