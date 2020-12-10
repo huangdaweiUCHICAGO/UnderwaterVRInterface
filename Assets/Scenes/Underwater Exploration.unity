@@ -14500,7 +14500,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973241572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00001}
   m_LocalScale: {x: 0.001, y: 0.001, z: 1}
   m_Children:
   - {fileID: 635558830}
@@ -14509,8 +14509,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.1057, y: 0.0126}
-  m_SizeDelta: {x: 55.61602, y: 35}
+  m_AnchoredPosition: {x: 0.0677, y: 0.01606}
+  m_SizeDelta: {x: 25.683899, y: 64.74972}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &973241574
 MonoBehaviour:
@@ -14550,8 +14550,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 65.00209, y: 35.427803, z: 0.029693948}
-  m_Center: {x: 0.35327318, y: -3.5093448, z: 0.0066880384}
+  m_Size: {x: 39.992676, y: 63.915493, z: 0.029693948}
+  m_Center: {x: 4.482871, y: 2.8070793, z: 0.0066880384}
 --- !u!114 &973241576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15900,34 +15900,6 @@ MonoBehaviour:
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
   profilerTcpPort: 32419
-  expandMixedRealityCapturePropertySheet: 0
-  enableMixedReality: 0
-  compositionMethod: 0
-  extraHiddenLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  externalCompositionBackdropColorRift: {r: 0, g: 1, b: 0, a: 1}
-  externalCompositionBackdropColorQuest: {r: 0, g: 0, b: 0, a: 0}
-  capturingCameraDevice: 0
-  flipCameraFrameHorizontally: 0
-  flipCameraFrameVertically: 0
-  handPoseStateLatency: 0
-  sandwichCompositionRenderLatency: 0
-  sandwichCompositionBufferedFrames: 8
-  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
-  chromaKeySimilarity: 0.6
-  chromaKeySmoothRange: 0.03
-  chromaKeySpillRange: 0.06
-  useDynamicLighting: 0
-  depthQuality: 1
-  dynamicLightingSmoothFactor: 8
-  dynamicLightingDepthVariationClampingValue: 0.001
-  virtualGreenScreenType: 0
-  virtualGreenScreenTopY: 10
-  virtualGreenScreenBottomY: -10
-  virtualGreenScreenApplyDepthCulling: 0
-  virtualGreenScreenDepthTolerance: 0.2
-  mrcActivationMode: 0
   _trackingOriginType: 0
   usePositionTracking: 1
   useRotationTracking: 1
@@ -19212,7 +19184,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282927924}
   m_LocalRotation: {x: 0.00000005960463, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00004}
   m_LocalScale: {x: 0.001, y: 0.001, z: 1}
   m_Children:
   - {fileID: 2001197572}
@@ -19221,8 +19193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0, y: 0.014593206}
-  m_SizeDelta: {x: 129.8, y: 59.8}
+  m_AnchoredPosition: {x: -0.00726, y: 0.01603}
+  m_SizeDelta: {x: 115.32027, y: 61.526794}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1282927926
 MonoBehaviour:
@@ -22189,8 +22161,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 39.317936, y: 35.427803, z: 0.029693946}
-  m_Center: {x: -2.74507, y: -3.5093455, z: 0.006688037}
+  m_Size: {x: 39.317936, y: 39.494602, z: 0.029693946}
+  m_Center: {x: -2.74507, y: -1.4759383, z: 0.006688037}
 --- !u!114 &1460042149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35040,6 +35012,11 @@ PrefabInstance:
       propertyPath: m_Maskable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2127803704663594329, guid: 2ea48f223881840b891114b4fe201004,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2127803704663594331, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
       propertyPath: currNavIndex
@@ -35066,10 +35043,20 @@ PrefabInstance:
       propertyPath: forearm
       value: 
       objectReference: {fileID: 850470949}
+    - target: {fileID: 2127803704663594331, guid: 2ea48f223881840b891114b4fe201004,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1411081794}
     - target: {fileID: 2127803704663594332, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
       propertyPath: m_Name
       value: Menu Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127803704663594332, guid: 2ea48f223881840b891114b4fe201004,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4812491732746356236, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
@@ -35099,12 +35086,17 @@ PrefabInstance:
     - target: {fileID: 5208773318985719501, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9.729237
+      value: 11.1886215
       objectReference: {fileID: 0}
     - target: {fileID: 5208773318985719501, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -5.3023577
+      objectReference: {fileID: 0}
+    - target: {fileID: 5208773318985719501, guid: 2ea48f223881840b891114b4fe201004,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 5208773320372601678, guid: 2ea48f223881840b891114b4fe201004,
         type: 3}
