@@ -17,43 +17,78 @@ public class MenuButtonController : MonoBehaviour
     private int item_h = 25;
     private CrewInfo[] crewInformation;
 
+    /* Update Menu */
+    private ArrayList oldItems;
+    private CrewInfo currCrewSelected;
+    private int temp_index;
+
     [SerializeField] RectTransform rectTransform;
 
- 
-    public void OnEnable() {
+    private void OnEnable() {
       crewInformation = ctm.GetCrewmatesInformation();
-      maxIndex = crewInformation.Length-1;
-
-      int temp_index = 0;
-
-      /* instantiate menu item for each crewmate */
-      foreach(CrewInfo currCrewmate in crewInformation)
-        {
-          GameObject newCrewmate = Instantiate(crewmateInfoPrefab, this.transform);
-          MenuButton menuButton = newCrewmate.GetComponent<MenuButton>();
-          menuButton.thisIndex = temp_index;
-          menuButton.crewmate = currCrewmate;
-
-          menuButton.menuButtonController = this.GetComponent<MenuButtonController>();
-
-          Text newCrewmateText = newCrewmate.transform.GetChild(0).GetComponent<Text>();
-          newCrewmateText.text = currCrewmate.name;
-
-          temp_index++;
-        }
     }
-
-  
+    
     // Start is called before the first frame update
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        oldItems = new ArrayList();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        DestroyItems();
+        AddItems();
+    }
+
+    private GameObject CreateItem(CrewInfo crewmate) {
+        GameObject newItem = Instantiate(crewmateInfoPrefab, this.transform);
+        MenuButton menuButton = newItem.GetComponent<MenuButton>();
+        menuButton.thisIndex = temp_index;
+        menuButton.crewmate = crewmate;
+
+        menuButton.menuButtonController = this.GetComponent<MenuButtonController>();
+
+        Text newItemText = newItem.transform.GetChild(0).GetComponent<Text>();
+        newItemText.text = crewmate.name;
+        return newItem;
+    }
+
+    void AddItems() {
+      oldItems = new ArrayList();
+      crewInformation = ctm.GetCrewmatesInformation();
+      maxIndex = crewInformation.Length-1;
+
+      if (index > maxIndex) {
+        index = maxIndex;
+      }
+
+      if (maxIndex < 2) {
+        rectTransform.offsetMax = Vector2.zero;
+      }
+
+      temp_index = 0;
+
+      /* instantiate menu item for each crewmate */
+      foreach(CrewInfo crewmate in crewInformation)
+        {
+          /* store the currently selected crewmate */
+          if (crewmate.name == currCrewSelected.name) {
+            index = temp_index;
+          }
+          GameObject crewmateItem = CreateItem(crewmate);
+          oldItems.Add(crewmateItem);
+          temp_index++;
+        }
+    }
+
+    void DestroyItems()
+    {
+      currCrewSelected = crewInformation[index];
+      foreach (GameObject item in oldItems) {
+        Destroy(item);
+      }
     }
 
     /* Scrolling logic implementation based on:
@@ -94,6 +129,7 @@ public class MenuButtonController : MonoBehaviour
       }
     }
 
+    /* buttons functionality */
     public void pressNav()
     {
       im.SetTracking(crewInformation[index]);

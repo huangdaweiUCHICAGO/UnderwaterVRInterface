@@ -19,17 +19,18 @@ public class MenuButton : MonoBehaviour
     {
         textDisplay = this.transform.GetChild(0).GetComponent<Text>();
         distanceDisplay = this.transform.GetChild(1).GetComponent<Text>();
+        GetDistance();
+        if (menuButtonController.index == thisIndex) {
+          textDisplay.text = "> " + crewmate.name;
+        } else {
+          textDisplay.text = crewmate.name;
+        } 
     }
 
     // Update is called once per frame
     void Update()
     {
-      GetDistance();
-      if (menuButtonController.index == thisIndex) {
-        textDisplay.text = "> " + crewmate.name;
-      } else {
-        textDisplay.text = crewmate.name;
-      } 
+      
     }
 
     private void GetDistance()
