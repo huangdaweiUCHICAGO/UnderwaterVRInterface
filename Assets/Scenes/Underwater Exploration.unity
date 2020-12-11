@@ -914,6 +914,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37aa9932f21a5324b8955f268ae625df, type: 3}
+--- !u!4 &69924499 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 37aa9932f21a5324b8955f268ae625df,
+    type: 3}
+  m_PrefabInstance: {fileID: 69924498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &79301286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17325,6 +17331,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37aa9932f21a5324b8955f268ae625df, type: 3}
+--- !u!4 &1128375065 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400002, guid: 37aa9932f21a5324b8955f268ae625df,
+    type: 3}
+  m_PrefabInstance: {fileID: 1128375064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1129317213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28751,6 +28763,8 @@ MonoBehaviour:
   - {fileID: 1740762272}
   - {fileID: 1872215675}
   - {fileID: 733003226}
+  - {fileID: 1128375065}
+  - {fileID: 69924499}
   crewmateFrequencies: 
   wrongFrequency: {fileID: 8300000, guid: a8092adf9cf23934fb85dc7c09c1aefb, type: 3}
   emergencyAudio: {fileID: 8300000, guid: bfaa54b4eb35c394fb613160b23db05a, type: 3}
